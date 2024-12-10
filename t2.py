@@ -1,5 +1,6 @@
 import unittest
 from HumanMoveTest.runner_and_tournament import Runner, Tournament
+from t1 import skip_frozen
 
 
 class MyRunner(Runner):
@@ -29,6 +30,8 @@ class MyTournament(Tournament):
 
 
 class TournamentTest(unittest.TestCase):
+    is_frozen = True
+
     @classmethod
     def setUpClass(cls):
         cls.all_results = []
@@ -43,6 +46,7 @@ class TournamentTest(unittest.TestCase):
         for i in cls.all_results:
             print(i)
 
+    @skip_frozen
     def test_tnmt1(self):
         tnmt = Tournament(90, self.usain, self.nick)
         result = tnmt.start()
@@ -50,6 +54,7 @@ class TournamentTest(unittest.TestCase):
 
         self.assertTrue(result[max([x for x in result.keys() if isinstance(x, int)])] is self.nick)
 
+    @skip_frozen
     def test_tnmt2(self):
         tnmt = Tournament(90, self.andrey, self.nick)
         result = tnmt.start()
@@ -57,6 +62,7 @@ class TournamentTest(unittest.TestCase):
 
         self.assertTrue(result[max([x for x in result.keys() if isinstance(x, int)])] is self.nick)
 
+    @skip_frozen
     def test_tnmt3(self):
         tnmt = Tournament(90, self.usain, self.andrey, self.nick)
         result = tnmt.start()
@@ -65,6 +71,7 @@ class TournamentTest(unittest.TestCase):
 
         self.assertTrue(result[max([x for x in result.keys() if isinstance(x, int)])] is self.nick)
 
+    @skip_frozen
     def test_tnmt4(self):
         tnmt = Tournament(90, self.andrey, self.usain, self.nick)
         result = tnmt.start()
@@ -73,6 +80,7 @@ class TournamentTest(unittest.TestCase):
 
         self.assertTrue(result[max([x for x in result.keys() if isinstance(x, int)])] is self.nick)
 
+    @skip_frozen
     def test_tnmt5(self):
         tnmt = Tournament(90, self.andrey, self.usain, self.nick)
         result = tnmt.start()
@@ -81,6 +89,7 @@ class TournamentTest(unittest.TestCase):
 
         self.assertTrue(result[min([x for x in result.keys() if isinstance(x, int)])] is self.usain)
 
+    @skip_frozen
     def test_tnmt6(self):
         tnmt = MyTournament(90, self.andrey, self.usain, self.nick)
         result = tnmt.start()
@@ -88,3 +97,7 @@ class TournamentTest(unittest.TestCase):
         self.all_results.append(result)
 
         self.assertTrue(result[min([x for x in result.keys() if isinstance(x, int)])] is self.usain)
+
+
+if __name__ == '__main__':
+    unittest.main()
